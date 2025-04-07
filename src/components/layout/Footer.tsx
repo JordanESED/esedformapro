@@ -97,7 +97,9 @@ const Footer: React.FC = () => {
               <li className="flex items-start">
                 <Mail className="h-5 w-5 text-esed-blue mt-0.5 mr-2" />
                 <span className="text-gray-600">
-                  <a href="mailto:contact@esed.online" className="hover:text-esed-gold transition-colors">contact@esed.online</a>
+                  <a href="mailto:hello@esed-ecole.com" className="hover:text-esed-gold transition-colors">hello@esed-ecole.com</a>
+                  <br />
+                  <a href="mailto:brice@esed-ecole.com" className="hover:text-esed-gold transition-colors">brice@esed-ecole.com</a>
                 </span>
               </li>
               <li className="flex items-start">
