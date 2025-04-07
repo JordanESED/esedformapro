@@ -3,11 +3,11 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 
-// Placeholder ESED logo
+// Placeholder ESED logo with updated name
 const ESEDLogo = () => (
   <div className="flex items-center">
     <span className="text-esed-blue font-bold text-2xl mr-1">ESED</span>
-    <span className="text-esed-orange font-bold">École</span>
+    <span className="text-esed-gold font-bold">Formation professionnelle</span>
   </div>
 );
 

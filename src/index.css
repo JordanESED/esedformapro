@@ -19,7 +19,7 @@
     --primary: 219.6 73.5% 36.9%;
     --primary-foreground: 210 40% 98%;
 
-    --secondary: 27.9 100% 50%;
+    --secondary: 45 100% 50%;
     --secondary-foreground: 222.2 47.4% 11.2%;
 
     --muted: 210 40% 96.1%;
@@ -73,7 +73,7 @@
   }
   
   .btn-secondary {
-    @apply bg-esed-orange text-white hover:bg-opacity-90 transition-all px-6 py-3 rounded-md font-medium;
+    @apply bg-esed-gold text-white hover:bg-opacity-90 transition-all px-6 py-3 rounded-md font-medium;
   }
 
   .btn-outline {
