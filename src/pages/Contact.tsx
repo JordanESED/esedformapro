@@ -46,8 +46,7 @@ const Contact = () => {
                   <div className="ml-4">
                     <h3 className="text-lg font-medium mb-1">Email</h3>
                     <p className="text-gray-700">
-                      <a href="mailto:brice@esed-ecole.com" className="hover:text-esed-orange transition-colors">brice@esed-ecole.com</a><br />
-                      <a href="mailto:contact@esed.online" className="hover:text-esed-orange transition-colors">contact@esed.online</a>
+                      <a href="mailto:contact@esed.online" className="hover:text-esed-gold transition-colors">contact@esed.online</a>
                     </p>
                   </div>
                 </div>
@@ -59,7 +58,7 @@ const Contact = () => {
                   <div className="ml-4">
                     <h3 className="text-lg font-medium mb-1">Téléphone</h3>
                     <p className="text-gray-700">
-                      <a href="tel:+33000000000" className="hover:text-esed-orange transition-colors">+33 (0)0 00 00 00 00</a>
+                      <a href="tel:+33000000000" className="hover:text-esed-gold transition-colors">+33 (0)0 00 00 00 00</a>
                     </p>
                   </div>
                 </div>
@@ -71,7 +70,7 @@ const Contact = () => {
                   <div className="ml-4">
                     <h3 className="text-lg font-medium mb-1">Adresse</h3>
                     <p className="text-gray-700">
-                      ESED École<br />
+                      ESED - Formation professionnelle<br />
                       Paris, France
                     </p>
                   </div>

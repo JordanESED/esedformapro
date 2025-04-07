@@ -63,10 +63,10 @@ export default {
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
 				},
-				// ESED specific colors - Updated orange to gold
+				// ESED specific colors - Updated gold to a more authentic gold color
 				esed: {
 					blue: '#0047AB', 
-					gold: '#FFD700',  // Changed from orange to gold
+					gold: '#D4AF37',  // Changed from yellowy gold to more authentic gold
 					white: '#FFFFFF'
 				}
 			},
