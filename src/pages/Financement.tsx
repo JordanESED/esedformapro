@@ -1,13 +1,43 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import Layout from '@/components/layout/Layout';
 import SectionTitle from '@/components/ui/SectionTitle';
-import { Check, ChevronDown, ChevronUp } from 'lucide-react';
+import { Check, ChevronDown, ChevronUp, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import ContactForm from '@/components/ui/ContactForm';
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { Form, FormControl, FormField, FormItem, FormLabel } from "@/components/ui/form";
+import { useForm } from "react-hook-form";
+import { Button } from "@/components/ui/button";
+import { useToast } from "@/hooks/use-toast";
 
 const Financement = () => {
+  const [currentStep, setCurrentStep] = useState(1);
+  const [formComplete, setFormComplete] = useState(false);
+  const { toast } = useToast();
+  
+  const form = useForm({
+    defaultValues: {
+      companySize: "",
+      companyType: "",
+      trainingType: "",
+      trainingDuration: "",
+    }
+  });
+
+  const handleNextStep = () => {
+    if (currentStep < 4) {
+      setCurrentStep(currentStep + 1);
+    } else {
+      setFormComplete(true);
+      toast({
+        title: "Éligibilité confirmée !",
+        description: "Félicitations, vous êtes éligible à un financement.",
+      });
+    }
+  };
+
   return (
     <Layout>
       {/* Hero Section */}
@@ -18,6 +48,272 @@ const Financement = () => {
             <p className="text-xl text-white/90 mb-8">
               Grâce à notre certification Qualiopi, nos formations sont éligibles à de nombreux dispositifs de financement, pouvant couvrir jusqu'à 100% des frais.
             </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Gamified Eligibility Form */}
+      <section className="py-16 bg-white">
+        <div className="container-custom">
+          <SectionTitle 
+            title="Évaluez votre éligibilité au financement" 
+            subtitle="Découvrez en quelques clics les options de financement adaptées à votre situation"
+            center
+          />
+          
+          <div className="max-w-2xl mx-auto mt-12 bg-gray-50 rounded-lg p-8 shadow-sm">
+            {!formComplete ? (
+              <div>
+                {/* Progress indicator */}
+                <div className="mb-8">
+                  <div className="flex justify-between mb-2">
+                    {Array.from({ length: 4 }).map((_, index) => (
+                      <div 
+                        key={index} 
+                        className={`h-3 w-3 rounded-full ${index < currentStep ? 'bg-esed-blue' : 'bg-gray-300'}`}
+                      />
+                    ))}
+                  </div>
+                  <div className="w-full h-2 bg-gray-200 rounded-full">
+                    <div 
+                      className="h-full bg-esed-blue rounded-full transition-all duration-500" 
+                      style={{ width: `${currentStep * 25}%` }}
+                    />
+                  </div>
+                  <p className="text-center text-gray-500 mt-2 text-sm">Étape {currentStep} sur 4</p>
+                </div>
+
+                {/* Step 1: Company Size */}
+                {currentStep === 1 && (
+                  <div className="space-y-6">
+                    <h3 className="text-2xl font-semibold text-gray-800 text-center">Taille de votre entreprise</h3>
+                    <p className="text-center text-gray-600">Sélectionnez le nombre de salariés dans votre entreprise</p>
+                    
+                    <Form {...form}>
+                      <form className="space-y-6">
+                        <FormField
+                          control={form.control}
+                          name="companySize"
+                          render={({ field }) => (
+                            <FormItem className="space-y-3">
+                              <FormControl>
+                                <RadioGroup
+                                  onValueChange={(value) => {
+                                    field.onChange(value);
+                                    setTimeout(handleNextStep, 500);
+                                  }}
+                                  className="space-y-3"
+                                >
+                                  <div className="flex items-center space-x-2 bg-white p-4 rounded border border-gray-200 hover:border-esed-blue transition-all cursor-pointer">
+                                    <RadioGroupItem value="less-than-50" id="r1" />
+                                    <FormLabel htmlFor="r1" className="cursor-pointer w-full">Moins de 50 salariés</FormLabel>
+                                  </div>
+                                  <div className="flex items-center space-x-2 bg-white p-4 rounded border border-gray-200 hover:border-esed-blue transition-all cursor-pointer">
+                                    <RadioGroupItem value="50-to-250" id="r2" />
+                                    <FormLabel htmlFor="r2" className="cursor-pointer w-full">Entre 50 et 250 salariés</FormLabel>
+                                  </div>
+                                  <div className="flex items-center space-x-2 bg-white p-4 rounded border border-gray-200 hover:border-esed-blue transition-all cursor-pointer">
+                                    <RadioGroupItem value="more-than-250" id="r3" />
+                                    <FormLabel htmlFor="r3" className="cursor-pointer w-full">Plus de 250 salariés</FormLabel>
+                                  </div>
+                                </RadioGroup>
+                              </FormControl>
+                            </FormItem>
+                          )}
+                        />
+                      </form>
+                    </Form>
+                  </div>
+                )}
+
+                {/* Step 2: Company Type */}
+                {currentStep === 2 && (
+                  <div className="space-y-6">
+                    <h3 className="text-2xl font-semibold text-gray-800 text-center">Type d'entreprise</h3>
+                    <p className="text-center text-gray-600">Sélectionnez le type de votre entreprise</p>
+                    
+                    <Form {...form}>
+                      <form className="space-y-6">
+                        <FormField
+                          control={form.control}
+                          name="companyType"
+                          render={({ field }) => (
+                            <FormItem className="space-y-3">
+                              <FormControl>
+                                <RadioGroup
+                                  onValueChange={(value) => {
+                                    field.onChange(value);
+                                    setTimeout(handleNextStep, 500);
+                                  }}
+                                  className="space-y-3"
+                                >
+                                  <div className="flex items-center space-x-2 bg-white p-4 rounded border border-gray-200 hover:border-esed-blue transition-all cursor-pointer">
+                                    <RadioGroupItem value="sarl" id="t1" />
+                                    <FormLabel htmlFor="t1" className="cursor-pointer w-full">SARL / EURL</FormLabel>
+                                  </div>
+                                  <div className="flex items-center space-x-2 bg-white p-4 rounded border border-gray-200 hover:border-esed-blue transition-all cursor-pointer">
+                                    <RadioGroupItem value="sas" id="t2" />
+                                    <FormLabel htmlFor="t2" className="cursor-pointer w-full">SAS / SASU</FormLabel>
+                                  </div>
+                                  <div className="flex items-center space-x-2 bg-white p-4 rounded border border-gray-200 hover:border-esed-blue transition-all cursor-pointer">
+                                    <RadioGroupItem value="association" id="t3" />
+                                    <FormLabel htmlFor="t3" className="cursor-pointer w-full">Association</FormLabel>
+                                  </div>
+                                  <div className="flex items-center space-x-2 bg-white p-4 rounded border border-gray-200 hover:border-esed-blue transition-all cursor-pointer">
+                                    <RadioGroupItem value="public" id="t4" />
+                                    <FormLabel htmlFor="t4" className="cursor-pointer w-full">Organisme public</FormLabel>
+                                  </div>
+                                </RadioGroup>
+                              </FormControl>
+                            </FormItem>
+                          )}
+                        />
+                      </form>
+                    </Form>
+                  </div>
+                )}
+
+                {/* Step 3: Training Type */}
+                {currentStep === 3 && (
+                  <div className="space-y-6">
+                    <h3 className="text-2xl font-semibold text-gray-800 text-center">Type de formation</h3>
+                    <p className="text-center text-gray-600">Quel type de formation vous intéresse ?</p>
+                    
+                    <Form {...form}>
+                      <form className="space-y-6">
+                        <FormField
+                          control={form.control}
+                          name="trainingType"
+                          render={({ field }) => (
+                            <FormItem className="space-y-3">
+                              <FormControl>
+                                <RadioGroup
+                                  onValueChange={(value) => {
+                                    field.onChange(value);
+                                    setTimeout(handleNextStep, 500);
+                                  }}
+                                  className="space-y-3"
+                                >
+                                  <div className="flex items-center space-x-2 bg-white p-4 rounded border border-gray-200 hover:border-esed-blue transition-all cursor-pointer">
+                                    <RadioGroupItem value="management" id="f1" />
+                                    <FormLabel htmlFor="f1" className="cursor-pointer w-full">Management</FormLabel>
+                                  </div>
+                                  <div className="flex items-center space-x-2 bg-white p-4 rounded border border-gray-200 hover:border-esed-blue transition-all cursor-pointer">
+                                    <RadioGroupItem value="commercial" id="f2" />
+                                    <FormLabel htmlFor="f2" className="cursor-pointer w-full">Commercial / Vente</FormLabel>
+                                  </div>
+                                  <div className="flex items-center space-x-2 bg-white p-4 rounded border border-gray-200 hover:border-esed-blue transition-all cursor-pointer">
+                                    <RadioGroupItem value="digital" id="f3" />
+                                    <FormLabel htmlFor="f3" className="cursor-pointer w-full">Digital / Informatique</FormLabel>
+                                  </div>
+                                  <div className="flex items-center space-x-2 bg-white p-4 rounded border border-gray-200 hover:border-esed-blue transition-all cursor-pointer">
+                                    <RadioGroupItem value="other" id="f4" />
+                                    <FormLabel htmlFor="f4" className="cursor-pointer w-full">Autre</FormLabel>
+                                  </div>
+                                </RadioGroup>
+                              </FormControl>
+                            </FormItem>
+                          )}
+                        />
+                      </form>
+                    </Form>
+                  </div>
+                )}
+
+                {/* Step 4: Training Duration */}
+                {currentStep === 4 && (
+                  <div className="space-y-6">
+                    <h3 className="text-2xl font-semibold text-gray-800 text-center">Durée de formation</h3>
+                    <p className="text-center text-gray-600">Quelle durée de formation envisagez-vous ?</p>
+                    
+                    <Form {...form}>
+                      <form className="space-y-6">
+                        <FormField
+                          control={form.control}
+                          name="trainingDuration"
+                          render={({ field }) => (
+                            <FormItem className="space-y-3">
+                              <FormControl>
+                                <RadioGroup
+                                  onValueChange={(value) => {
+                                    field.onChange(value);
+                                    setTimeout(handleNextStep, 500);
+                                  }}
+                                  className="space-y-3"
+                                >
+                                  <div className="flex items-center space-x-2 bg-white p-4 rounded border border-gray-200 hover:border-esed-blue transition-all cursor-pointer">
+                                    <RadioGroupItem value="1-2-days" id="d1" />
+                                    <FormLabel htmlFor="d1" className="cursor-pointer w-full">1-2 jours</FormLabel>
+                                  </div>
+                                  <div className="flex items-center space-x-2 bg-white p-4 rounded border border-gray-200 hover:border-esed-blue transition-all cursor-pointer">
+                                    <RadioGroupItem value="3-5-days" id="d2" />
+                                    <FormLabel htmlFor="d2" className="cursor-pointer w-full">3-5 jours</FormLabel>
+                                  </div>
+                                  <div className="flex items-center space-x-2 bg-white p-4 rounded border border-gray-200 hover:border-esed-blue transition-all cursor-pointer">
+                                    <RadioGroupItem value="more-than-week" id="d3" />
+                                    <FormLabel htmlFor="d3" className="cursor-pointer w-full">Plus d'une semaine</FormLabel>
+                                  </div>
+                                  <div className="flex items-center space-x-2 bg-white p-4 rounded border border-gray-200 hover:border-esed-blue transition-all cursor-pointer">
+                                    <RadioGroupItem value="not-sure" id="d4" />
+                                    <FormLabel htmlFor="d4" className="cursor-pointer w-full">Je ne sais pas encore</FormLabel>
+                                  </div>
+                                </RadioGroup>
+                              </FormControl>
+                            </FormItem>
+                          )}
+                        />
+                      </form>
+                    </Form>
+                  </div>
+                )}
+                
+                <div className="mt-8 flex justify-center">
+                  <Button 
+                    onClick={handleNextStep}
+                    className="bg-esed-blue hover:bg-esed-blue/90 text-white flex items-center gap-2"
+                  >
+                    {currentStep < 4 ? "Suivant" : "Vérifier mon éligibilité"} <ArrowRight size={16} />
+                  </Button>
+                </div>
+              </div>
+            ) : (
+              <div className="text-center py-8">
+                <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                  <Check className="h-10 w-10 text-green-600" />
+                </div>
+                <h3 className="text-2xl font-bold text-gray-800 mb-4">Félicitations !</h3>
+                <p className="text-lg text-gray-700 mb-6">
+                  Vous êtes éligible à un financement pour votre formation.
+                </p>
+                <div className="bg-blue-50 p-6 rounded-lg mb-8 max-w-md mx-auto">
+                  <p className="text-gray-800">
+                    Prenez contact dès aujourd'hui avec notre conseiller pour connaître les modalités précises :
+                  </p>
+                  <a 
+                    href="mailto:brice@esed-ecole.com" 
+                    className="text-esed-blue font-medium text-lg hover:underline"
+                  >
+                    brice@esed-ecole.com
+                  </a>
+                </div>
+                <div className="flex justify-center gap-4 flex-wrap">
+                  <Link to="/contact" className="btn-primary">
+                    Nous contacter
+                  </Link>
+                  <Button 
+                    onClick={() => {
+                      setFormComplete(false);
+                      setCurrentStep(1);
+                      form.reset();
+                    }}
+                    variant="outline"
+                    className="border-esed-blue text-esed-blue hover:bg-esed-blue hover:text-white"
+                  >
+                    Recommencer le test
+                  </Button>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </section>

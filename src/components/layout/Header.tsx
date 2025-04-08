@@ -35,6 +35,10 @@ const Header: React.FC = () => {
             <ESEDLogo />
           </Link>
 
+          <div className="hidden md:block text-esed-gold font-medium italic bg-gray-50 px-4 py-2 rounded">
+            Formation sur-mesure à la demande
+          </div>
+
           {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center space-x-8">
             {navItems.map((item) => (
@@ -67,6 +71,9 @@ const Header: React.FC = () => {
       {isMenuOpen && (
         <div className="lg:hidden bg-white absolute w-full left-0 shadow-md animate-fade-in py-4">
           <nav className="container-custom flex flex-col space-y-4">
+            <div className="text-esed-gold font-medium italic bg-gray-50 px-4 py-2 rounded mb-2 text-center">
+              Formation sur-mesure à la demande
+            </div>
             {navItems.map((item) => (
               <Link
                 key={item.name}
