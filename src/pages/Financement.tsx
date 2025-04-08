@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import Layout from '@/components/layout/Layout';
 import SectionTitle from '@/components/ui/SectionTitle';
@@ -11,21 +10,20 @@ import { Form, FormControl, FormField, FormItem, FormLabel } from "@/components/
 import { useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
-
 const Financement = () => {
   const [currentStep, setCurrentStep] = useState(1);
   const [formComplete, setFormComplete] = useState(false);
-  const { toast } = useToast();
-  
+  const {
+    toast
+  } = useToast();
   const form = useForm({
     defaultValues: {
       companySize: "",
       companyType: "",
       trainingType: "",
-      trainingDuration: "",
+      trainingDuration: ""
     }
   });
-
   const handleNextStep = () => {
     if (currentStep < 4) {
       setCurrentStep(currentStep + 1);
@@ -33,13 +31,11 @@ const Financement = () => {
       setFormComplete(true);
       toast({
         title: "Éligibilité confirmée !",
-        description: "Félicitations, vous êtes éligible à un financement.",
+        description: "Félicitations, vous êtes éligible à un financement."
       });
     }
   };
-
-  return (
-    <Layout>
+  return <Layout>
       {/* Hero Section */}
       <section className="bg-gradient-to-r from-esed-blue to-[#1a65c9] text-white py-16 md:py-24">
         <div className="container-custom">
@@ -55,55 +51,40 @@ const Financement = () => {
       {/* Gamified Eligibility Form */}
       <section className="py-16 bg-white">
         <div className="container-custom">
-          <SectionTitle 
-            title="Évaluez votre éligibilité au financement" 
-            subtitle="Découvrez en quelques clics les options de financement adaptées à votre situation"
-            center
-          />
+          <SectionTitle title="Évaluez votre éligibilité au financement" subtitle="Découvrez en quelques clics les options de financement adaptées à votre situation" center />
           
           <div className="max-w-2xl mx-auto mt-12 bg-gray-50 rounded-lg p-8 shadow-sm">
-            {!formComplete ? (
-              <div>
+            {!formComplete ? <div>
                 {/* Progress indicator */}
                 <div className="mb-8">
                   <div className="flex justify-between mb-2">
-                    {Array.from({ length: 4 }).map((_, index) => (
-                      <div 
-                        key={index} 
-                        className={`h-3 w-3 rounded-full ${index < currentStep ? 'bg-esed-blue' : 'bg-gray-300'}`}
-                      />
-                    ))}
+                    {Array.from({
+                  length: 4
+                }).map((_, index) => <div key={index} className={`h-3 w-3 rounded-full ${index < currentStep ? 'bg-esed-blue' : 'bg-gray-300'}`} />)}
                   </div>
                   <div className="w-full h-2 bg-gray-200 rounded-full">
-                    <div 
-                      className="h-full bg-esed-blue rounded-full transition-all duration-500" 
-                      style={{ width: `${currentStep * 25}%` }}
-                    />
+                    <div className="h-full bg-esed-blue rounded-full transition-all duration-500" style={{
+                  width: `${currentStep * 25}%`
+                }} />
                   </div>
                   <p className="text-center text-gray-500 mt-2 text-sm">Étape {currentStep} sur 4</p>
                 </div>
 
                 {/* Step 1: Company Size */}
-                {currentStep === 1 && (
-                  <div className="space-y-6">
+                {currentStep === 1 && <div className="space-y-6">
                     <h3 className="text-2xl font-semibold text-gray-800 text-center">Taille de votre entreprise</h3>
                     <p className="text-center text-gray-600">Sélectionnez le nombre de salariés dans votre entreprise</p>
                     
                     <Form {...form}>
                       <form className="space-y-6">
-                        <FormField
-                          control={form.control}
-                          name="companySize"
-                          render={({ field }) => (
-                            <FormItem className="space-y-3">
+                        <FormField control={form.control} name="companySize" render={({
+                    field
+                  }) => <FormItem className="space-y-3">
                               <FormControl>
-                                <RadioGroup
-                                  onValueChange={(value) => {
-                                    field.onChange(value);
-                                    setTimeout(handleNextStep, 500);
-                                  }}
-                                  className="space-y-3"
-                                >
+                                <RadioGroup onValueChange={value => {
+                        field.onChange(value);
+                        setTimeout(handleNextStep, 500);
+                      }} className="space-y-3">
                                   <div className="flex items-center space-x-2 bg-white p-4 rounded border border-gray-200 hover:border-esed-blue transition-all cursor-pointer">
                                     <RadioGroupItem value="less-than-50" id="r1" />
                                     <FormLabel htmlFor="r1" className="cursor-pointer w-full">Moins de 50 salariés</FormLabel>
@@ -118,35 +99,26 @@ const Financement = () => {
                                   </div>
                                 </RadioGroup>
                               </FormControl>
-                            </FormItem>
-                          )}
-                        />
+                            </FormItem>} />
                       </form>
                     </Form>
-                  </div>
-                )}
+                  </div>}
 
                 {/* Step 2: Company Type */}
-                {currentStep === 2 && (
-                  <div className="space-y-6">
+                {currentStep === 2 && <div className="space-y-6">
                     <h3 className="text-2xl font-semibold text-gray-800 text-center">Type d'entreprise</h3>
                     <p className="text-center text-gray-600">Sélectionnez le type de votre entreprise</p>
                     
                     <Form {...form}>
                       <form className="space-y-6">
-                        <FormField
-                          control={form.control}
-                          name="companyType"
-                          render={({ field }) => (
-                            <FormItem className="space-y-3">
+                        <FormField control={form.control} name="companyType" render={({
+                    field
+                  }) => <FormItem className="space-y-3">
                               <FormControl>
-                                <RadioGroup
-                                  onValueChange={(value) => {
-                                    field.onChange(value);
-                                    setTimeout(handleNextStep, 500);
-                                  }}
-                                  className="space-y-3"
-                                >
+                                <RadioGroup onValueChange={value => {
+                        field.onChange(value);
+                        setTimeout(handleNextStep, 500);
+                      }} className="space-y-3">
                                   <div className="flex items-center space-x-2 bg-white p-4 rounded border border-gray-200 hover:border-esed-blue transition-all cursor-pointer">
                                     <RadioGroupItem value="sarl" id="t1" />
                                     <FormLabel htmlFor="t1" className="cursor-pointer w-full">SARL / EURL</FormLabel>
@@ -165,35 +137,26 @@ const Financement = () => {
                                   </div>
                                 </RadioGroup>
                               </FormControl>
-                            </FormItem>
-                          )}
-                        />
+                            </FormItem>} />
                       </form>
                     </Form>
-                  </div>
-                )}
+                  </div>}
 
                 {/* Step 3: Training Type */}
-                {currentStep === 3 && (
-                  <div className="space-y-6">
+                {currentStep === 3 && <div className="space-y-6">
                     <h3 className="text-2xl font-semibold text-gray-800 text-center">Type de formation</h3>
                     <p className="text-center text-gray-600">Quel type de formation vous intéresse ?</p>
                     
                     <Form {...form}>
                       <form className="space-y-6">
-                        <FormField
-                          control={form.control}
-                          name="trainingType"
-                          render={({ field }) => (
-                            <FormItem className="space-y-3">
+                        <FormField control={form.control} name="trainingType" render={({
+                    field
+                  }) => <FormItem className="space-y-3">
                               <FormControl>
-                                <RadioGroup
-                                  onValueChange={(value) => {
-                                    field.onChange(value);
-                                    setTimeout(handleNextStep, 500);
-                                  }}
-                                  className="space-y-3"
-                                >
+                                <RadioGroup onValueChange={value => {
+                        field.onChange(value);
+                        setTimeout(handleNextStep, 500);
+                      }} className="space-y-3">
                                   <div className="flex items-center space-x-2 bg-white p-4 rounded border border-gray-200 hover:border-esed-blue transition-all cursor-pointer">
                                     <RadioGroupItem value="management" id="f1" />
                                     <FormLabel htmlFor="f1" className="cursor-pointer w-full">Management</FormLabel>
@@ -212,35 +175,26 @@ const Financement = () => {
                                   </div>
                                 </RadioGroup>
                               </FormControl>
-                            </FormItem>
-                          )}
-                        />
+                            </FormItem>} />
                       </form>
                     </Form>
-                  </div>
-                )}
+                  </div>}
 
                 {/* Step 4: Training Duration */}
-                {currentStep === 4 && (
-                  <div className="space-y-6">
+                {currentStep === 4 && <div className="space-y-6">
                     <h3 className="text-2xl font-semibold text-gray-800 text-center">Durée de formation</h3>
                     <p className="text-center text-gray-600">Quelle durée de formation envisagez-vous ?</p>
                     
                     <Form {...form}>
                       <form className="space-y-6">
-                        <FormField
-                          control={form.control}
-                          name="trainingDuration"
-                          render={({ field }) => (
-                            <FormItem className="space-y-3">
+                        <FormField control={form.control} name="trainingDuration" render={({
+                    field
+                  }) => <FormItem className="space-y-3">
                               <FormControl>
-                                <RadioGroup
-                                  onValueChange={(value) => {
-                                    field.onChange(value);
-                                    setTimeout(handleNextStep, 500);
-                                  }}
-                                  className="space-y-3"
-                                >
+                                <RadioGroup onValueChange={value => {
+                        field.onChange(value);
+                        setTimeout(handleNextStep, 500);
+                      }} className="space-y-3">
                                   <div className="flex items-center space-x-2 bg-white p-4 rounded border border-gray-200 hover:border-esed-blue transition-all cursor-pointer">
                                     <RadioGroupItem value="1-2-days" id="d1" />
                                     <FormLabel htmlFor="d1" className="cursor-pointer w-full">1-2 jours</FormLabel>
@@ -259,25 +213,17 @@ const Financement = () => {
                                   </div>
                                 </RadioGroup>
                               </FormControl>
-                            </FormItem>
-                          )}
-                        />
+                            </FormItem>} />
                       </form>
                     </Form>
-                  </div>
-                )}
+                  </div>}
                 
                 <div className="mt-8 flex justify-center">
-                  <Button 
-                    onClick={handleNextStep}
-                    className="bg-esed-blue hover:bg-esed-blue/90 text-white flex items-center gap-2"
-                  >
+                  <Button onClick={handleNextStep} className="bg-esed-blue hover:bg-esed-blue/90 text-white flex items-center gap-2">
                     {currentStep < 4 ? "Suivant" : "Vérifier mon éligibilité"} <ArrowRight size={16} />
                   </Button>
                 </div>
-              </div>
-            ) : (
-              <div className="text-center py-8">
+              </div> : <div className="text-center py-8">
                 <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
                   <Check className="h-10 w-10 text-green-600" />
                 </div>
@@ -289,10 +235,7 @@ const Financement = () => {
                   <p className="text-gray-800">
                     Prenez contact dès aujourd'hui avec notre conseiller pour connaître les modalités précises :
                   </p>
-                  <a 
-                    href="mailto:brice@esed-ecole.com" 
-                    className="text-esed-blue font-medium text-lg hover:underline"
-                  >
+                  <a href="mailto:brice@esed-ecole.com" className="text-esed-blue font-medium text-lg hover:underline">
                     brice@esed-ecole.com
                   </a>
                 </div>
@@ -300,20 +243,15 @@ const Financement = () => {
                   <Link to="/contact" className="btn-primary">
                     Nous contacter
                   </Link>
-                  <Button 
-                    onClick={() => {
-                      setFormComplete(false);
-                      setCurrentStep(1);
-                      form.reset();
-                    }}
-                    variant="outline"
-                    className="border-esed-blue text-esed-blue hover:bg-esed-blue hover:text-white"
-                  >
+                  <Button onClick={() => {
+                setFormComplete(false);
+                setCurrentStep(1);
+                form.reset();
+              }} variant="outline" className="border-esed-blue text-esed-blue hover:bg-esed-blue hover:text-white">
                     Recommencer le test
                   </Button>
                 </div>
-              </div>
-            )}
+              </div>}
           </div>
         </div>
       </section>
@@ -323,10 +261,7 @@ const Financement = () => {
         <div className="container-custom">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
-              <SectionTitle 
-                title="Notre certification Qualiopi" 
-                subtitle="Un gage de qualité pour vos financeurs"
-              />
+              <SectionTitle title="Notre certification Qualiopi" subtitle="Un gage de qualité pour vos financeurs" />
               
               <p className="text-gray-700 mb-6">
                 La certification Qualiopi est une reconnaissance délivrée par l'État attestant de la qualité du processus 
@@ -372,9 +307,7 @@ const Financement = () => {
                 <div className="p-6 bg-white rounded-lg shadow-sm inline-block mb-4">
                   <span className="text-3xl font-bold text-esed-blue">Qualiopi</span>
                 </div>
-                <p className="text-gray-600">
-                  ESED est certifié Qualiopi au titre de la catégorie "Actions de formation"
-                </p>
+                <p className="text-gray-600">ESED est certifié Qualiopi au titre de la catégorie "Actions de formation" et "Actions de formation par Apprentissage"</p>
               </div>
             </div>
           </div>
@@ -384,11 +317,7 @@ const Financement = () => {
       {/* Options de financement */}
       <section className="py-16 bg-gray-50">
         <div className="container-custom">
-          <SectionTitle 
-            title="Options de financement" 
-            subtitle="Découvrez les différentes solutions pour financer vos formations"
-            center
-          />
+          <SectionTitle title="Options de financement" subtitle="Découvrez les différentes solutions pour financer vos formations" center />
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-8">
             {/* OPCO */}
@@ -485,10 +414,7 @@ const Financement = () => {
       {/* Processus de financement */}
       <section className="py-16 bg-white">
         <div className="container-custom">
-          <SectionTitle 
-            title="Processus de demande de financement" 
-            subtitle="Un accompagnement pas à pas pour faciliter vos démarches"
-          />
+          <SectionTitle title="Processus de demande de financement" subtitle="Un accompagnement pas à pas pour faciliter vos démarches" />
           
           <div className="max-w-3xl mx-auto">
             <div className="relative">
@@ -569,11 +495,7 @@ const Financement = () => {
       {/* FAQ */}
       <section className="py-16 bg-gray-50">
         <div className="container-custom">
-          <SectionTitle 
-            title="Questions fréquentes" 
-            subtitle="Retrouvez les réponses aux questions les plus courantes sur le financement"
-            center
-          />
+          <SectionTitle title="Questions fréquentes" subtitle="Retrouvez les réponses aux questions les plus courantes sur le financement" center />
           
           <div className="max-w-3xl mx-auto mt-8">
             <Accordion type="single" collapsible className="space-y-4">
@@ -657,10 +579,7 @@ const Financement = () => {
         <div className="container-custom">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             <div>
-              <SectionTitle 
-                title="Besoin d'aide pour votre financement ?" 
-                subtitle="Notre équipe vous accompagne dans toutes vos démarches"
-              />
+              <SectionTitle title="Besoin d'aide pour votre financement ?" subtitle="Notre équipe vous accompagne dans toutes vos démarches" />
               
               <p className="text-gray-700 mb-6">
                 Comprendre les mécanismes de financement de la formation professionnelle peut être complexe. 
@@ -707,8 +626,6 @@ const Financement = () => {
           </div>
         </div>
       </section>
-    </Layout>
-  );
+    </Layout>;
 };
-
 export default Financement;
