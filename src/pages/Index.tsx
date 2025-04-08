@@ -97,6 +97,11 @@ const Index = () => {
             </div>
             <div className="hidden md:block">
               <div className="bg-white/10 backdrop-blur-lg p-8 rounded-lg shadow-lg">
+                <div className="text-center mb-6">
+                  <h3 className="text-xl font-semibold italic text-esed-gold bg-white/20 py-2 px-3 rounded-md inline-block">
+                    Formation sur-mesure à la demande
+                  </h3>
+                </div>
                 <div className="flex items-center mb-6">
                   <div className="bg-esed-orange h-10 w-10 rounded-full flex items-center justify-center mr-4">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-6 h-6">
