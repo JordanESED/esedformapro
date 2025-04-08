@@ -62,7 +62,7 @@ const Equipe = () => {
   // Données de l'équipe
   const teamMembers = [
     {
-      name: "Brice Letourneau",
+      name: "Brice Bonbois",
       role: "Directeur & Formateur Vente",
       expertise: ["Sales Hacking", "Marketing Digital", "Frameworks de vente"],
       bio: "Expert en stratégie commerciale avec plus de 15 ans d'expérience. Brice a accompagné des centaines d'entreprises dans l'optimisation de leur processus de vente et l'acquisition client.",
